@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie Search</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+</head>
+<style>
+  form {
+    margin-bottom: 50px;
+  }
+
+  .input {
+    min-width: 20%;
+    min-height: 35px;
+    color: #dddddd;
+    outline: none;
+    transition: 0.35s;
+    padding: 0px 15px;
+    background-color: #212121;
+    border-radius: 6px;
+    border: 2px solid #212121;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 1), .5px .5px 10px rgba(255, 255, 255, 0.6);
+
+    box-sizing: border-box;
+    margin: 10px 20px 0 20px;
+  }
+
+  .input:focus {
+    box-shadow: .5px .5px 10px rgba(255, 255, 255, 0.6)
+  }
+
+  .btn {
+    padding: 5px 35px;
+    cursor: pointer;
+    background-color: #212121;
+    border-radius: 6px;
+    border: 1px solid #212121;
+    box-shadow: 6px 6px 10px rgba(0, 0, 0, 1), 1px 1px 10px rgba(255, 255, 255, 0.6);
+    color: #dddddd;
+    font-size: 15px;
+    font-weight: bold;
+    transition: 0.35s;
+  }
+
+  .btn:hover {
+    transform: scale(1.05);
+    box-shadow: 6px 6px 10px rgba(0, 0, 0, 1), 1px 1px 10px rgba(255, 255, 255, 0.6), inset 2px 2px 10px rgba(0, 0, 0, 1), inset -1px -1px 5px rgba(255, 255, 255, 0.6);
+  }
+
+  .btn:focus {
+    transform: scale(1.05);
+    box-shadow: 6px 6px 10px rgba(0, 0, 0, 1), 1px 1px 10px rgba(255, 255, 255, 0.6), inset 2px 2px 10px rgba(0, 0, 0, 1), inset -1px -1px 5px rgba(255, 255, 255, 0.6);
+  }
+
+  @media (max-width: 960px) {
+    form{
+      display: flex;
+      align-items: center;
+      text-align: center;
+      justify-content: space-evenly;
+    }
+    .form .form_front {
+      width: 95%;
+    }
+
+    .form_details {
+      display: none;
+    }
+
+    .input {
+      width: 60%;
+    }
+
+    .btn {
+      padding: 5px 10%;
+    }
+  }
+</style>
+
+<body>
+  <div class="container">
+    <form id="movieSearchForm">
+      <input class="input" type="text" id="movieName" name="movieName" required>
+      <button class="btn" type="submit">Найти</button>
+    </form>
+    <div id="searchResults"></div>
+  </div>
+  <script src="script.js"></script>
+</body>
+
+</html>
