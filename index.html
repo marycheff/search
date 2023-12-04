@@ -8,25 +8,17 @@
   <link rel="stylesheet" href="style.css">
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 </head>
+
 <body>
-  <div class="container">
-    <form id="movieSearchForm">
-      <input class="input" type="text" id="movieName" name="movieName" required>
-      <button class="btn" type="submit">Найти</button>
+  <div class="main-container">
+    <form id="movieSearchForm" class="search-form">
+      <input class="search-input" type="text" id="movieName" name="movieName" required>
+      <button class="search-btn" type="submit">Найти</button>
     </form>
-    <div id="searchResults"></div>
+      <div id="searchResults" class="results-container"></div>
   </div>
-  <script src="script.js"></script>
   <button id="clearButton" onclick="localStorage.removeItem('movieName');location.reload();"> Local Storage</button>
-  <script>
-    
-  </script>
-  <style>
-    #clearButton{
-      color:#212121;
-      background-color: #212121;
-    }
-  </style>
+  <script src="script.js"></script>
 </body>
 
 </html>
