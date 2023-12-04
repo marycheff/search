@@ -1,30 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {
   const movieNameInput = document.getElementById("movieName");
   const searchResultsElement = document.getElementById("searchResults");
-
-  // Check if there is a stored movieName
   const storedMovieName = localStorage.getItem("movieName");
-
-  if (storedMovieName) {
-    // If stored, set the input value
-    movieNameInput.value = storedMovieName;
-
-    // Trigger the search function with the stored movieName
-    performMovieSearch(storedMovieName);
-  }
-
   const movieSearchForm = document.getElementById("movieSearchForm");
 
-  movieSearchForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const movieName = movieNameInput.value.trim();
-
-    // Store movieName in localStorage
-    localStorage.setItem("movieName", movieName);
-
-    // Trigger the search function
-    performMovieSearch(movieName);
-  });
+  if (storedMovieName) {
+    movieNameInput.value = storedMovieName;
+    performMovieSearch(storedMovieName);
+  }
 
   function performMovieSearch(movieName) {
     const apiKey = "660XDJZ-J474ZP1-Q9E0PYY-2TBY1XY";
@@ -100,4 +83,10 @@ document.addEventListener("DOMContentLoaded", function () {
           "<p>Ошибка при запросе к API Kinopoisk</p>";
       });
   }
+  movieSearchForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const movieName = movieNameInput.value.trim();
+    localStorage.setItem("movieName", movieName);
+    performMovieSearch(movieName);
+  });
 });
