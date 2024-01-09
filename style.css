@@ -132,11 +132,11 @@ img {
   margin: 20px;
   box-sizing: border-box;
   text-align: center;
-  border-radius: 20px;
+  border-radius: 10px;
   max-width: 45%;
 }
 #all > * {
-  border-radius: 20px;
+  border-radius: 10px;
   /* Замените 10px на нужное вам значение радиуса */
 }
 @media (max-width: 960px) {
