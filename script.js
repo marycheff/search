@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
           resultHTML += `
         <div class="wrapper">
-          <iframe id="english" src="https://voidboost.tv/embed/ ${movie["id"]}?&td=20,425,643,328&tp=20,425,643,328&poster=1&poster_id=2&h=vbzettest.club" frameborder="0" allowfullscreen="true"></iframe>
+          <iframe id="english" src="https://voidboost.org/embed/ ${movie["id"]}?&td=20,425,643,328&tp=20,425,643,328&poster=1&poster_id=2&h=vbzettest.club" frameborder="0" allowfullscreen="true"></iframe>
           <div id="all" class="kinobox_player"></div>
         </div>
       `;
