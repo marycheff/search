@@ -115,13 +115,15 @@ img {
   justify-content: space-between;
 }
 #single {
-  width: 100vh;
+  width: 115vh;
   height: auto;
+
 }
 #single,
 #single > * {
   text-align: center;
   margin: 0 auto;
+    border-radius: 10px;
 }
 #english,
 #all {
