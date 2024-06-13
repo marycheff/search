@@ -164,6 +164,7 @@ img {
     height: auto;
   }
   #single{
+    
     width: 100vh;
   }
 }
@@ -178,6 +179,7 @@ img {
   }
   #single{
     width: 100vh;
+    margin-top: 50px;
   }
 }
 form {
