@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
         movieName
       )}`;
     } else {
-      apiUrl = `https://api.kinopoisk.dev/v1.4/movie/search?page=1&limit=10&query=${encodeURIComponent(
+      apiUrl = `https://api.kinopoisk.dev/v1.4/movie/search?page=1&limit=1&query=${encodeURIComponent(
         movieName
       )}`;
     }
