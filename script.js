@@ -45,6 +45,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         let russia = false;
+        // ДОБАВЛЕНО ВРЕМЕННО
+        russia = true
         movie.countries.forEach((element) => {
           if (element.name == "Россия") {
             russia = true;
