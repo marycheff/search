@@ -115,7 +115,7 @@ img {
   justify-content: space-between;
 }
 #single {
-  width: 100vh;
+  width: 110vh;
   height: auto;
 
 }
@@ -163,6 +163,9 @@ img {
     width: 50%;
     height: auto;
   }
+  #single{
+    width: 100vh;
+  }
 }
 
 @media (max-width: 480px) {
@@ -173,7 +176,11 @@ img {
     height: 250px;
     max-width: 95%;
   }
-}form {
+  #single{
+    width: 100vh;
+  }
+}
+form {
     margin-bottom: 50px;
     
   }
