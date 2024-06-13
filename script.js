@@ -11,15 +11,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function performMovieSearch(movieName) {
     const apiKey = "660XDJZ-J474ZP1-Q9E0PYY-2TBY1XY";
-    const apiUrl = `https://api.kinopoisk.dev/v1.4/movie/search?query=${encodeURIComponent(
-      movieName
-    )}&limit=1`;
-
-    fetch(apiUrl, {
+    const options = {
+      method: "GET",
       headers: {
+        accept: "application/json",
         "X-API-KEY": apiKey,
       },
-    })
+    };
+    let apiUrl;
+
+    if (!isNaN(movieName)) {
+      apiUrl = `https://api.kinopoisk.dev/v1.4/movie/${encodeURIComponent(
+        movieName
+      )}`;
+    } else {
+      apiUrl = `https://api.kinopoisk.dev/v1.4/movie/search?page=1&limit=10&query=${encodeURIComponent(
+        movieName
+      )}`;
+    }
+
+    fetch(apiUrl, options)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Ошибка при запросе к API Kinopoisk");
@@ -27,42 +38,39 @@ document.addEventListener("DOMContentLoaded", function () {
         return response.json();
       })
       .then((data) => {
-        const movies = data.docs;
+        const movies = data.docs ? data.docs : [data];
         if (!movies || movies.length === 0) {
           searchResultsElement.innerHTML = `<h2>Фильм "${movieName}" не найден.</h2>`;
           return;
         }
 
         const movie = movies[0];
+        let movieId = movie["id"];
         let resultHTML;
-        if (movie.logo.url) {
+        if (movie.logo && movie.logo.url) {
           resultHTML = `
-        <div class="poster">
-          <img src="${movie.logo.url}" alt="${movie.name} poster">
-        </div>`;
+            <div class="poster">
+              <img src="${movie.logo.url}" alt="${movie.name} poster">
+            </div>`;
         } else {
           resultHTML = `<h1>${movie.name} (${movie.year})</h1>`;
         }
 
-        let russia = false;
-        // ДОБАВЛЕНО ВРЕМЕННО
-        russia = true
-        movie.countries.forEach((element) => {
-          if (element.name == "Россия") {
-            russia = true;
-          }
-        });
+        let russia = movie.countries.some(
+          (country) => country.name === "Россия"
+        );
 
+        // ВРЕМЕННО
+        russia = true;
         if (russia) {
           resultHTML += `
-          <div id="single" class="kinobox_player"></div>`;
+            <div id="single" class="kinobox_player"></div>`;
         } else {
           resultHTML += `
-        <div class="wrapper">
-          <iframe id="english" src="https://voidboost.fancdn.net/embed/ ${movie["id"]}?&td=20,425,643,328&tp=20,425,643,328&poster=1&poster_id=2&h=vbzettest.club" frameborder="0" allowfullscreen="true"></iframe>
-          <div id="all" class="kinobox_player"></div>
-        </div>
-      `;
+            <div class="wrapper">
+              <iframe id="english" src="https://voidboost.fancdn.net/embed/${movieId}?&td=20,425,643,328&tp=20,425,643,328&poster=1&poster_id=2&h=vbzettest.club" frameborder="0" allowfullscreen="true"></iframe>
+              <div id="all" class="kinobox_player"></div>
+            </div>`;
         }
 
         const kinoboxScript = document.createElement("script");
@@ -72,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
         kinoboxScript.onload = function () {
           new Kinobox(".kinobox_player", {
             search: {
-              kinopoisk: movie.id,
+              kinopoisk: movieId,
             },
             players: {},
           }).init();
@@ -85,6 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
           "<p>Ошибка при запросе к API Kinopoisk</p>";
       });
   }
+
   movieSearchForm.addEventListener("submit", (event) => {
     event.preventDefault();
     const movieName = movieNameInput.value.trim();
