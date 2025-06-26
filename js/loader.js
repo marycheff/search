@@ -9,6 +9,9 @@ export function showSkeletonLoader() {
 						 <div class="skeleton skeleton-source"></div>
 						 <div class="skeleton skeleton-source"></div>
 						 <div class="skeleton skeleton-source"></div>
+						 <div class="skeleton skeleton-source"></div>
+						 <div class="skeleton skeleton-source"></div>
+						 <div class="skeleton skeleton-source"></div>
 					</div>
 			  </div>
 		 </div>

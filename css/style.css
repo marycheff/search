@@ -217,12 +217,6 @@ form {
    z-index: 1000;
 }
 
-@media (max-width: 1800px) {
-   .player-container {
-      width: 95%;
-   }
-}
-
 @media (max-width: 960px) {
    form {
       display: flex;
@@ -312,7 +306,9 @@ form {
 .skeleton-title {
    height: 48px;
    width: 60%;
-   margin: 10px auto;
+   margin: 0 auto;
+   margin-bottom: 20px;
+   margin-top: 20px;
    border-radius: 8px;
    flex-shrink: 0;
 }
@@ -333,9 +329,10 @@ form {
 }
 
 .loading-container {
-   margin: 10px auto;
-   width: 90%;
-   max-width: min(90vw, calc((100vh - 180px) * 16 / 9));
+   margin: 0 auto;
+   width: 100%;
+   max-width: min(90vw, calc((100vh - 290px) * 16 / 9));
+
    display: flex;
    flex-direction: column;
    flex: 1;
@@ -351,12 +348,22 @@ form {
    .skeleton-sources {
       gap: 10px;
    }
+   .skeleton-title {
+      margin-bottom: 15px;
+      height: 30px;
+   }
 
    .loading-container {
-      max-width: min(95vw, calc((100vh - 160px) * 16 / 9));
+      width: 95%;
+      max-width: min(95vw, calc((100vh - 200px) * 16 / 9));
    }
 }
-
+@media (max-width: 780px) {
+   .loading-container {
+      width: 97%;
+      max-width: min(100vw, calc((100vh - 140px) * 16 / 9));
+   }
+}
 @media (max-width: 480px) {
    .skeleton-source {
       height: 38px;
