@@ -1,24 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Поиск фильмов</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Поиск фильмов</title>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 </head>
 
 <body>
-  <div class="main-container">
-    <form id="movieSearchForm" class="search-form">
-      <input class="search-input" type="text" id="movieName" name="movieName" required>
-      <button class="search-btn" type="submit">Найти</button>
-    </form>
-      <div id="searchResults" class="results-container"></div>
-  </div>
-  <button id="clearButton" onclick="localStorage.removeItem('movieName');location.reload();"> Local Storage</button>
-  <script src="script.js"></script>
+	<div class="main-container">
+		<form id="movieSearchForm" class="search-form">
+			<input class="search-input" type="text" id="movieName" name="movieName" required>
+			<button class="search-btn" type="submit">Найти</button>
+		</form>
+		<div id="searchResults" class="results-container"></div>
+	</div>
+	<button id="clearButton" onclick="localStorage.removeItem('movieName');location.reload();">Clear Storage</button>
+
+	<script type="module" src="js/main.js"></script>
 </body>
 
 </html>
