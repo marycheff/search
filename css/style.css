@@ -162,6 +162,7 @@ h1 {
 form {
    margin-bottom: 20px;
    flex-shrink: 0;
+   /* text-align: center; */
 }
 
 .search-input {
@@ -249,18 +250,21 @@ form {
       width: 60%;
    }
    .search-btn {
-      padding: 5px 10%;
+      padding: 5px 35px;
    }
 
    h1 {
-      margin: 5px auto;
+      margin-bottom: 15px;
    }
 }
 
 @media (max-width: 780px) {
    .player-container {
-      width: 100%;
+      width: 97%;
       max-width: min(100vw, calc((100vh - 140px) * 16 / 9));
+   }
+   .search-input {
+      min-width: 100px;
    }
 }
 
@@ -290,8 +294,12 @@ form {
 }
 
 @keyframes skeleton-loading {
-   0% { background-position: 200% 0; }
-   100% { background-position: -200% 0; }
+   0% {
+      background-position: 200% 0;
+   }
+   100% {
+      background-position: -200% 0;
+   }
 }
 
 .skeleton-player {
@@ -327,7 +335,7 @@ form {
 .loading-container {
    margin: 10px auto;
    width: 90%;
-   max-width: min(90vw, calc((100vh - 180px) * 16/9));
+   max-width: min(90vw, calc((100vh - 180px) * 16 / 9));
    display: flex;
    flex-direction: column;
    flex: 1;
@@ -339,13 +347,13 @@ form {
       height: 42px;
       width: 80px;
    }
-   
+
    .skeleton-sources {
       gap: 10px;
    }
-   
+
    .loading-container {
-      max-width: min(95vw, calc((100vh - 160px) * 16/9));
+      max-width: min(95vw, calc((100vh - 160px) * 16 / 9));
    }
 }
 
@@ -354,12 +362,12 @@ form {
       height: 38px;
       width: 70px;
    }
-   
+
    .skeleton-sources {
       gap: 8px;
    }
-   
+
    .loading-container {
-      max-width: min(100vw, calc((100vh - 120px) * 16/9));
+      max-width: min(100vw, calc((100vh - 120px) * 16 / 9));
    }
 }
