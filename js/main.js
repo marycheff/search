@@ -1,14 +1,15 @@
-import { getMovieFromKinopoisk, fetchKinoboxSources } from "./api.js"
-import { createPlayerHTML, setupSourceButtons } from "./player.js"
-import { updatePageTitle, getStoredMovieName, setStoredMovieName } from "./utils.js"
+import { fetchKinoboxSources, getMovieFromKinopoisk } from "./api.js"
 import { showSkeletonLoader } from "./loader.js"
-
+import { createPlayerHTML, setupSourceButtons } from "./player.js"
+import { getStoredMovieName, setStoredMovieName, updatePageTitle } from "./utils.js"
 
 document.addEventListener("DOMContentLoaded", function () {
-
    const movieNameInput = document.getElementById("movieName")
    const searchResultsElement = document.getElementById("searchResults")
    const movieSearchForm = document.getElementById("movieSearchForm")
+
+   cleanURL()
+
    const storedMovieName = getStoredMovieName()
 
    if (storedMovieName) {
@@ -51,16 +52,48 @@ document.addEventListener("DOMContentLoaded", function () {
       }
    }
 
-   movieSearchForm.addEventListener("submit", (event) => {
+   movieSearchForm.addEventListener("submit", handleFormSubmit)
+
+   // Дополнительная защита - обработчик на кнопку
+   const submitButton =
+      movieSearchForm.querySelector('button[type="submit"]') || movieSearchForm.querySelector('input[type="submit"]')
+   if (submitButton) {
+      submitButton.addEventListener("click", handleFormSubmit)
+   }
+
+   // Обработчик нажатия Enter в поле ввода
+   movieNameInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+         handleFormSubmit(event)
+      }
+   })
+
+   function handleFormSubmit(event) {
+      // Предотвращаем стандартное поведение формы
       event.preventDefault()
+      event.stopPropagation()
+
       const movieName = movieNameInput.value.trim()
 
       if (!movieName) {
          alert("Введите название фильма")
-         return
+         return false
       }
 
       setStoredMovieName(movieName)
       performMovieSearch(movieName)
-   })
+
+      return false
+   }
+
+   // Функция для очистки URL от параметров
+   function cleanURL() {
+      const url = new URL(window.location)
+
+      // Если в URL есть параметры, очищаем их
+      if (url.search) {
+         // Заменяем текущий URL на чистый без параметров
+         window.history.replaceState({}, document.title, url.pathname)
+      }
+   }
 })

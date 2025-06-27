@@ -21,9 +21,16 @@ export function setupSourceButtons(sources) {
 
    if (!sourcesElement || !contentElement) return
 
-   const preferredSource = localStorage.getItem(STORAGE_KEYS.PREFERRED_SOURCE)
-   let preferredSourceIndex = sources.findIndex((source) => source.type === preferredSource)
+   // Сначала ищем Alloha
+   let preferredSourceIndex = sources.findIndex((source) => source.type === "Alloha")
 
+   // Если Alloha не найден, используем сохраненное предпочтение
+   if (preferredSourceIndex === -1) {
+      const preferredSource = localStorage.getItem(STORAGE_KEYS.PREFERRED_SOURCE)
+      preferredSourceIndex = sources.findIndex((source) => source.type === preferredSource)
+   }
+
+   // Если ничего не найдено, используем первый источник
    if (preferredSourceIndex === -1) preferredSourceIndex = 0
 
    sources.forEach((source, index) => {
