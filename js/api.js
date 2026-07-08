@@ -48,12 +48,43 @@ export async function fetchKinoboxSources(movieData) {
    }
 
    let response = await request.json()
-   if (typeof response !== "object" || !Array.isArray(response?.data) || response === null) {
+   if (typeof response !== "object" || response === null) {
       throw new Error(`Неверный формат ответа от API: "${typeof response}"`)
    }
 
-   let playersData = response.data
-   playersData = playersData.filter((player) => player?.iframeUrl && player?.success && player?.type)
+   const rawPlayersData = Array.isArray(response?.data)
+      ? response.data
+      : Array.isArray(response?.data?.data)
+        ? response.data.data
+        : null
+   if (!rawPlayersData) {
+      throw new Error(`Неверный формат ответа от API: "data" не является массивом`)
+   }
+
+   const normalizeUrl = (value) => {
+      if (typeof value !== "string") return null
+      const trimmed = value.trim()
+      if (!trimmed) return null
+      return trimmed.replace(/^`+/, "").replace(/`+$/, "").trim() || null
+   }
+
+   const playersData = rawPlayersData
+      .map((player) => {
+         const translations = Array.isArray(player?.translations)
+            ? player.translations
+                 .map((t) => ({ ...t, iframeUrl: normalizeUrl(t?.iframeUrl) }))
+                 .filter((t) => t?.iframeUrl)
+            : []
+
+         return {
+            ...player,
+            iframeUrl: normalizeUrl(player?.iframeUrl),
+            translations,
+         }
+      })
+      .filter(
+         (player) => player?.type && player?.success !== false && (player?.iframeUrl || player?.translations?.length),
+      )
 
    return playersData
 }
