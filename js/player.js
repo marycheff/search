@@ -1,7 +1,19 @@
 import { STORAGE_KEYS } from "./config.js"
 
 export function createPlayerHTML(sources, movie) {
-	let resultHTML = `<h2 class="movie-title">${movie.name} <span style="color: var(--text-muted); font-weight: 400;">(${movie.year})</span></h2>`
+	let titleHTML
+	if (movie.logo?.url) {
+		titleHTML = `
+			<div class="movie-logo-wrapper">
+				<img class="movie-logo" src="${movie.logo.url}" alt="${movie.name}" />
+				<span class="movie-year">${movie.year}</span>
+			</div>
+		`
+	} else {
+		titleHTML = `<h2 class="movie-title">${movie.name} <span style="color: var(--text-muted); font-weight: 400;">(${movie.year})</span></h2>`
+	}
+
+	let resultHTML = titleHTML
 
 	resultHTML += `
         <div class="player-container">
