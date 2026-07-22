@@ -471,6 +471,13 @@ body {
 	/* transform: scale(0.95); */
 }
 
+.settings-wrapper:has(.settings-dropdown.open) .settings-btn {
+	background: rgba(108, 92, 231, 0.1);
+	border-color: var(--accent-primary);
+	color: var(--accent-secondary);
+	box-shadow: 0 0 15px var(--accent-glow);
+}
+
 .settings-dropdown {
 	position: absolute;
 	top: calc(100% + 8px);
@@ -620,6 +627,13 @@ body {
 }
 
 .history-btn:hover {
+	background: rgba(108, 92, 231, 0.1);
+	border-color: var(--accent-primary);
+	color: var(--accent-secondary);
+	box-shadow: 0 0 15px var(--accent-glow);
+}
+
+.history-wrapper:has(.history-dropdown.open) .history-btn {
 	background: rgba(108, 92, 231, 0.1);
 	border-color: var(--accent-primary);
 	color: var(--accent-secondary);
@@ -1134,6 +1148,10 @@ body {
 		gap: 6px;
 	}
 
+	.header-actions {
+		gap: 6px;
+	}
+
 	.settings-btn {
 		width: 32px;
 		height: 32px;
@@ -1148,6 +1166,17 @@ body {
 	.settings-dropdown {
 		width: 260px;
 		right: 0;
+	}
+
+	.history-btn {
+		width: 32px;
+		height: 32px;
+		padding: 5px;
+	}
+
+	.history-btn svg {
+		width: 16px;
+		height: 16px;
 	}
 
 	.clear-btn {
@@ -1310,6 +1339,10 @@ body {
 
 	.header-inner {
 		gap: 4px;
+	}
+
+	.header-actions {
+		margin-left: auto;
 	}
 
 	.search-input {

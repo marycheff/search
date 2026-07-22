@@ -173,6 +173,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (historyDropdown.classList.contains("open")) {
          closeHistory()
       } else {
+         settingsDropdown.classList.remove("open")
          renderHistory()
          openHistory()
       }
@@ -206,6 +207,7 @@ document.addEventListener("DOMContentLoaded", function () {
       // Toggle settings dropdown
       settingsButton.addEventListener("click", (e) => {
          e.stopPropagation()
+         closeHistory()
          settingsDropdown.classList.toggle("open")
       })
 
