@@ -56,6 +56,14 @@
 		margin: 0;
 	}
 
+	.player-container {
+		max-width: min(100%, calc((100vh - 170px) * 16 / 9));
+	}
+
+	.loading-container {
+		max-width: min(100%, calc((100vh - 170px) * 16 / 9));
+	}
+
 	.main-content {
 		padding: 8px 16px;
 	}
@@ -150,10 +158,6 @@
 	.skeleton-title {
 		height: 28px;
 	}
-
-	.loading-container {
-		width: 100%;
-	}
 }
 
 /* ============================================
@@ -231,6 +235,14 @@
 
 	.history-list {
 		max-height: 280px;
+	}
+
+	.player-container {
+		max-width: min(100%, calc((100vh - 140px) * 16 / 9));
+	}
+
+	.loading-container {
+		max-width: min(100%, calc((100vh - 140px) * 16 / 9));
 	}
 
 	.source-button {
