@@ -1,0 +1,111 @@
+/* ============================================
+   HEADER
+   ============================================ */
+.header {
+	position: sticky;
+	top: 0;
+	z-index: 100;
+	backdrop-filter: blur(20px);
+	-webkit-backdrop-filter: blur(20px);
+}
+
+.header-inner {
+	max-width: 1400px;
+	margin: 0 auto;
+	padding: 8px 24px;
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	position: relative;
+}
+
+.logo {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	flex-shrink: 0;
+}
+
+.logo-icon {
+	width: 28px;
+	height: 28px;
+	color: var(--accent-secondary);
+	filter: drop-shadow(0 0 8px var(--accent-glow));
+}
+
+.logo-text {
+	font-size: 18px;
+	font-weight: 700;
+	color: var(--text-primary);
+	letter-spacing: -0.5px;
+}
+
+.logo-accent {
+	background: var(--accent-gradient);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+}
+
+/* ============================================
+   HEADER MOVIE INFO (title / logo inside header)
+   ============================================ */
+.header-movie-info {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 0;
+	overflow: hidden;
+	padding: 4px 8px;
+}
+
+.header-movie-info .movie-title {
+	font-size: clamp(18px, 2.5vw, 28px);
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	background: var(--accent-gradient);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	line-height: 1.2;
+}
+
+.header-movie-info .movie-logo-wrapper {
+	margin: 0;
+	flex-direction: row;
+	align-items: center;
+	gap: 12px;
+	flex: 0 1 auto;
+	min-width: 0;
+}
+
+.header-movie-info .movie-logo {
+	max-height: 56px;
+	width: auto;
+	max-width: 100%;
+	object-fit: contain;
+	filter: drop-shadow(0 0 20px rgba(108, 92, 231, 0.2));
+}
+
+.header-movie-info .movie-year {
+	font-size: 14px;
+	color: var(--text-muted);
+	font-weight: 400;
+	white-space: nowrap;
+	flex-shrink: 0;
+}
+
+/* ============================================
+   HEADER ACTIONS
+   ============================================ */
+.header-actions {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	flex-shrink: 0;
+}

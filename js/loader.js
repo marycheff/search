@@ -1,7 +1,6 @@
 export function showSkeletonLoader() {
    const skeletonHTML = `
 		 <div class="loading-container">
-			  <div class="skeleton skeleton-logo"></div>
 			  <div class="player-container">
 					<div class="skeleton skeleton-player"></div>
 					<div class="skeleton-sources">

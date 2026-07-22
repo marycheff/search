@@ -1,0 +1,62 @@
+/* ============================================
+   BACKGROUND EFFECTS
+   ============================================ */
+.bg-effects {
+	position: fixed;
+	inset: 0;
+	pointer-events: none;
+	z-index: 0;
+	overflow: hidden;
+}
+
+.bg-orb {
+	position: absolute;
+	border-radius: 50%;
+	filter: blur(100px);
+	opacity: 0.3;
+	animation: orbFloat 20s ease-in-out infinite;
+}
+
+.bg-orb-1 {
+	width: 600px;
+	height: 600px;
+	background: rgba(108, 92, 231, 0.15);
+	top: -200px;
+	left: -150px;
+	animation-delay: 0s;
+}
+
+.bg-orb-2 {
+	width: 500px;
+	height: 500px;
+	background: rgba(162, 155, 254, 0.1);
+	bottom: -150px;
+	right: -100px;
+	animation-delay: -7s;
+}
+
+.bg-orb-3 {
+	width: 400px;
+	height: 400px;
+	background: rgba(108, 92, 231, 0.08);
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	animation-delay: -14s;
+}
+
+@keyframes orbFloat {
+	0%,
+	100% {
+		transform: translate(0, 0) scale(1);
+	}
+	25% {
+		transform: translate(50px, -50px) scale(1.1);
+	}
+	50% {
+		transform: translate(-30px, 30px) scale(0.95);
+	}
+	75% {
+		transform: translate(40px, 20px) scale(1.05);
+	}
+}

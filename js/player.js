@@ -2,23 +2,7 @@ import { STORAGE_KEYS } from "./config.js"
 import { getShowPoster } from "./utils.js"
 
 export function createPlayerHTML(sources, movie) {
-	const showPoster = getShowPoster()
-
-	let titleHTML
-	if (showPoster && movie.logo?.url) {
-		titleHTML = `
-			<div class="movie-logo-wrapper">
-				<img class="movie-logo" src="${movie.logo.url}" alt="${movie.name}" />
-				<span class="movie-year">${movie.year}</span>
-			</div>
-		`
-	} else {
-		titleHTML = `<h2 class="movie-title">${movie.name} <span style="color: var(--text-muted); font-weight: 400;">(${movie.year})</span></h2>`
-	}
-
-	let resultHTML = titleHTML
-
-	resultHTML += `
+	return `
         <div class="player-container">
             <div id="player-content" class="player-content">
                 <span>Выберите источник для просмотра</span>
@@ -26,8 +10,24 @@ export function createPlayerHTML(sources, movie) {
             <div id="player-sources" class="player-sources"></div>
         </div>
     `
+}
 
-	return resultHTML
+export function renderMovieTitle(movie) {
+	const headerInfo = document.getElementById("headerMovieInfo")
+	if (!headerInfo) return
+
+	const showPoster = getShowPoster()
+
+	if (showPoster && movie.logo?.url) {
+		headerInfo.innerHTML = `
+			<div class="movie-logo-wrapper">
+				<img class="movie-logo" src="${movie.logo.url}" alt="${movie.name}" />
+				<span class="movie-year">${movie.year}</span>
+			</div>
+		`
+	} else {
+		headerInfo.innerHTML = `<span class="movie-title">${movie.name} <span style="color: var(--text-muted); font-weight: 400;">(${movie.year})</span></span>`
+	}
 }
 
 export function setupSourceButtons(sources) {

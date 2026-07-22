@@ -1,6 +1,6 @@
 import { fetchKinoboxSources, getMovieFromKinopoisk } from "./api.js"
 import { showSkeletonLoader } from "./loader.js"
-import { createPlayerHTML, setupSourceButtons } from "./player.js"
+import { createPlayerHTML, setupSourceButtons, renderMovieTitle } from "./player.js"
 import { getStoredMovieName, setStoredMovieName, updatePageTitle, getWatchHistory, addToWatchHistory, clearWatchHistory, getShowPoster, setShowPoster } from "./utils.js"
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -54,6 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
          movieNameInput.value = ""
          searchClearBtn.classList.remove("visible")
          searchResultsElement.innerHTML = ""
+         document.getElementById("headerMovieInfo").innerHTML = ""
          showEmptyState()
          movieNameInput.focus()
          setStoredMovieName("")
@@ -71,6 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
    async function performMovieSearch(movieName) {
       try {
          hideEmptyState()
+         document.getElementById("headerMovieInfo").innerHTML = ""
          searchResultsElement.innerHTML = showSkeletonLoader()
 
          const movie = await getMovieFromKinopoisk(movieName)
@@ -78,6 +80,8 @@ document.addEventListener("DOMContentLoaded", function () {
          updatePageTitle(movie.name)
          addToWatchHistory(movie)
          renderHistory()
+
+         renderMovieTitle(movie)
 
          const movieData = {
             kinopoisk: movie.id,
@@ -97,6 +101,7 @@ document.addEventListener("DOMContentLoaded", function () {
          setupSourceButtons(sources)
       } catch (error) {
          console.error("Ошибка при поиске фильма:", error)
+         document.getElementById("headerMovieInfo").innerHTML = ""
 
          if (error.message === "Фильм не найден") {
             searchResultsElement.innerHTML = `<div class="empty-state" style="display:flex"><h2 class="empty-title" style="color:var(--text-muted);">Фильм "${movieName}" не найден.</h2></div>`
