@@ -42,6 +42,12 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       movieNameInput.addEventListener("input", toggleClearBtn)
+
+      const searchWrapper = document.querySelector(".search-wrapper")
+      if (searchWrapper) {
+         searchWrapper.addEventListener("click", toggleClearBtn)
+      }
+
       toggleClearBtn()
 
       searchClearBtn.addEventListener("click", function () {
