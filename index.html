@@ -7,17 +7,70 @@
 	<title>Поиск фильмов</title>
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 
 <body>
-	<div class="main-container">
-		<form id="movieSearchForm" class="search-form">
-			<input class="search-input" type="text" id="movieName" name="movieName" required>
-			<button class="search-btn" type="submit">Найти</button>
-		</form>
-		<div id="searchResults" class="results-container"></div>
+	<div class="bg-effects">
+		<div class="bg-orb bg-orb-1"></div>
+		<div class="bg-orb bg-orb-2"></div>
+		<div class="bg-orb bg-orb-3"></div>
 	</div>
-	<button id="clearButton" onclick="localStorage.removeItem('movieName');location.reload();">Clear Storage</button>
+
+	<header class="header">
+		<div class="header-inner">
+			<!-- <div class="logo">
+				<svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+					<circle cx="12" cy="12" r="10"/>
+					<polygon points="10,8 16,12 10,16" fill="currentColor" stroke="none"/>
+				</svg>
+				<span class="logo-text">Movie<span class="logo-accent">Search</span></span>
+			</div>
+			 -->
+			<form id="movieSearchForm" class="search-form">
+				<div class="search-wrapper">
+					<svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<circle cx="11" cy="11" r="8"/>
+						<line x1="21" y1="21" x2="16.65" y2="16.65"/>
+					</svg>
+					<input class="search-input" type="text" id="movieName" name="movieName" placeholder="Введите название фильма..." required autocomplete="off">
+					<button class="search-btn" type="submit">
+						<span class="btn-text">Найти</span>
+						<svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<line x1="5" y1="12" x2="19" y2="12"/>
+							<polyline points="12 5 19 12 12 19"/>
+						</svg>
+					</button>
+				</div>
+			</form>
+			<button id="clearButton" class="clear-btn" title="Очистить поиск и историю">
+				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					<polyline points="3 6 5 6 21 6"/>
+					<path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+				</svg>
+			</button>
+		</div>
+	</header>
+
+	<main class="main-content">
+		<div id="searchResults" class="results-container"></div>
+
+		<div class="empty-state" id="emptyState">
+			<div class="empty-icon">
+				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+					<circle cx="11" cy="11" r="8"/>
+					<line x1="21" y1="21" x2="16.65" y2="16.65"/>
+					<line x1="8" y1="11" x2="14" y2="11"/>
+					<line x1="11" y1="8" x2="11" y2="14"/>
+				</svg>
+			</div>
+			<h2 class="empty-title">Начните поиск</h2>
+			<p class="empty-desc">Введите название фильма в строку поиска и наслаждайтесь просмотром</p>
+		</div>
+	</main>
+
 
 	<script type="module" src="js/main.js"></script>
 </body>

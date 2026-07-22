@@ -1,9 +1,9 @@
 import { STORAGE_KEYS } from "./config.js"
 
 export function createPlayerHTML(sources, movie) {
-   let resultHTML = `<h1>${movie.name} (${movie.year})</h1>`
+	let resultHTML = `<h2 class="movie-title">${movie.name} <span style="color: var(--text-muted); font-weight: 400;">(${movie.year})</span></h2>`
 
-   resultHTML += `
+	resultHTML += `
         <div class="player-container">
             <div id="player-content" class="player-content">
                 <span>Выберите источник для просмотра</span>
@@ -12,58 +12,58 @@ export function createPlayerHTML(sources, movie) {
         </div>
     `
 
-   return resultHTML
+	return resultHTML
 }
 
 export function setupSourceButtons(sources) {
-   const sourcesElement = document.getElementById("player-sources")
-   const contentElement = document.getElementById("player-content")
+	const sourcesElement = document.getElementById("player-sources")
+	const contentElement = document.getElementById("player-content")
 
-   if (!sourcesElement || !contentElement) return
+	if (!sourcesElement || !contentElement) return
 
-   // Сначала ищем Alloha
-   let preferredSourceIndex = sources.findIndex((source) => source.type === "Alloha")
+	// Сначала ищем Alloha
+	let preferredSourceIndex = sources.findIndex((source) => source.type === "Turbo")
 
-   // Если Alloha не найден, используем сохраненное предпочтение
-   if (preferredSourceIndex === -1) {
-      const preferredSource = localStorage.getItem(STORAGE_KEYS.PREFERRED_SOURCE)
-      preferredSourceIndex = sources.findIndex((source) => source.type === preferredSource)
-   }
+	// Если Alloha не найден, используем сохраненное предпочтение
+	if (preferredSourceIndex === -1) {
+		const preferredSource = localStorage.getItem(STORAGE_KEYS.PREFERRED_SOURCE)
+		preferredSourceIndex = sources.findIndex((source) => source.type === preferredSource)
+	}
 
-   // Если ничего не найдено, используем первый источник
-   if (preferredSourceIndex === -1) preferredSourceIndex = 0
+	// Если ничего не найдено, используем первый источник
+	if (preferredSourceIndex === -1) preferredSourceIndex = 0
 
-   sources.forEach((source, index) => {
-      const sourceButton = document.createElement("button")
-      sourceButton.className = "source-button"
-      sourceButton.innerText = source?.type
+	sources.forEach((source, index) => {
+		const sourceButton = document.createElement("button")
+		sourceButton.className = "source-button"
+		sourceButton.innerText = source?.type
 
-      if (index === preferredSourceIndex) {
-         sourceButton.classList.add("selected")
-         selectSource(source, contentElement)
-      }
+		if (index === preferredSourceIndex) {
+			sourceButton.classList.add("selected")
+			selectSource(source, contentElement)
+		}
 
-      sourceButton.addEventListener("click", () => {
-         if (sourceButton.classList.contains("selected")) return
+		sourceButton.addEventListener("click", () => {
+			if (sourceButton.classList.contains("selected")) return
 
-         sourcesElement.querySelectorAll(".source-button").forEach((btn) => btn.classList.remove("selected"))
-         sourceButton.classList.add("selected")
+			sourcesElement.querySelectorAll(".source-button").forEach((btn) => btn.classList.remove("selected"))
+			sourceButton.classList.add("selected")
 
-         localStorage.setItem(STORAGE_KEYS.PREFERRED_SOURCE, source.type)
-         selectSource(source, contentElement)
-      })
+			localStorage.setItem(STORAGE_KEYS.PREFERRED_SOURCE, source.type)
+			selectSource(source, contentElement)
+		})
 
-      sourcesElement.appendChild(sourceButton)
-   })
+		sourcesElement.appendChild(sourceButton)
+	})
 }
 
 function selectSource(sourceData, contentElement) {
-   const iframe = document.createElement("iframe")
-   iframe.src = sourceData?.iframeUrl
-   iframe.allowFullscreen = true
-   iframe.style.width = "100%"
-   iframe.style.border = "none"
+	const iframe = document.createElement("iframe")
+	iframe.src = sourceData?.iframeUrl
+	iframe.allowFullscreen = true
+	iframe.style.width = "100%"
+	iframe.style.border = "none"
 
-   contentElement.innerHTML = ""
-   contentElement.appendChild(iframe)
+	contentElement.innerHTML = ""
+	contentElement.appendChild(iframe)
 }

@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
    const movieNameInput = document.getElementById("movieName")
    const searchResultsElement = document.getElementById("searchResults")
    const movieSearchForm = document.getElementById("movieSearchForm")
+   const emptyState = document.getElementById("emptyState")
 
    cleanURL()
 
@@ -14,11 +15,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
    if (storedMovieName) {
       movieNameInput.value = storedMovieName
+      hideEmptyState()
       performMovieSearch(storedMovieName)
+   }
+
+   function showEmptyState() {
+      if (emptyState) emptyState.style.display = "flex"
+   }
+
+   function hideEmptyState() {
+      if (emptyState) emptyState.style.display = "none"
    }
 
    async function performMovieSearch(movieName) {
       try {
+         hideEmptyState()
          searchResultsElement.innerHTML = showSkeletonLoader()
 
          const movie = await getMovieFromKinopoisk(movieName)
@@ -33,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
          const sources = await fetchKinoboxSources(movieData)
 
          if (sources.length === 0) {
-            searchResultsElement.innerHTML = `<h2>Плееры для фильма "${movieName}" не найдены.</h2>`
+            searchResultsElement.innerHTML = `<div class="empty-state" style="display:flex"><h2 class="empty-title" style="color:var(--text-muted);">Плееры для фильма "${movieName}" не найдены.</h2></div>`
             return
          }
 
@@ -45,23 +56,21 @@ document.addEventListener("DOMContentLoaded", function () {
          console.error("Ошибка при поиске фильма:", error)
 
          if (error.message === "Фильм не найден") {
-            searchResultsElement.innerHTML = `<h2>Фильм "${movieName}" не найден.</h2>`
+            searchResultsElement.innerHTML = `<div class="empty-state" style="display:flex"><h2 class="empty-title" style="color:var(--text-muted);">Фильм "${movieName}" не найден.</h2></div>`
          } else {
-            searchResultsElement.innerHTML = `<p>Произошла ошибка при поиске: ${error.message}</p>`
+            searchResultsElement.innerHTML = `<div class="empty-state" style="display:flex;padding:40px 20px;"><p class="empty-desc" style="color:var(--red);">Произошла ошибка при поиске: ${error.message}</p></div>`
          }
       }
    }
 
    movieSearchForm.addEventListener("submit", handleFormSubmit)
 
-   // Дополнительная защита - обработчик на кнопку
    const submitButton =
       movieSearchForm.querySelector('button[type="submit"]') || movieSearchForm.querySelector('input[type="submit"]')
    if (submitButton) {
       submitButton.addEventListener("click", handleFormSubmit)
    }
 
-   // Обработчик нажатия Enter в поле ввода
    movieNameInput.addEventListener("keydown", (event) => {
       if (event.key === "Enter") {
          handleFormSubmit(event)
@@ -69,7 +78,6 @@ document.addEventListener("DOMContentLoaded", function () {
    })
 
    function handleFormSubmit(event) {
-      // Предотвращаем стандартное поведение формы
       event.preventDefault()
       event.stopPropagation()
 
@@ -81,18 +89,15 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       setStoredMovieName(movieName)
+      hideEmptyState()
       performMovieSearch(movieName)
 
       return false
    }
 
-   // Функция для очистки URL от параметров
    function cleanURL() {
       const url = new URL(window.location)
-
-      // Если в URL есть параметры, очищаем их
       if (url.search) {
-         // Заменяем текущий URL на чистый без параметров
          window.history.replaceState({}, document.title, url.pathname)
       }
    }
