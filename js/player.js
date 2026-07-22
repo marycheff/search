@@ -1,8 +1,11 @@
 import { STORAGE_KEYS } from "./config.js"
+import { getShowPoster } from "./utils.js"
 
 export function createPlayerHTML(sources, movie) {
+	const showPoster = getShowPoster()
+
 	let titleHTML
-	if (movie.logo?.url) {
+	if (showPoster && movie.logo?.url) {
 		titleHTML = `
 			<div class="movie-logo-wrapper">
 				<img class="movie-logo" src="${movie.logo.url}" alt="${movie.name}" />

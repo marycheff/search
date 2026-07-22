@@ -12,6 +12,15 @@ export function setStoredMovieName(movieName) {
    localStorage.setItem("movieName", movieName)
 }
 
+export function getShowPoster() {
+   const val = localStorage.getItem(STORAGE_KEYS.SHOW_POSTER)
+   return val === null ? true : val === "true"
+}
+
+export function setShowPoster(value) {
+   localStorage.setItem(STORAGE_KEYS.SHOW_POSTER, value ? "true" : "false")
+}
+
 export function getWatchHistory() {
    try {
       const data = localStorage.getItem(STORAGE_KEYS.WATCH_HISTORY)

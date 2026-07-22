@@ -1,7 +1,7 @@
 import { fetchKinoboxSources, getMovieFromKinopoisk } from "./api.js"
 import { showSkeletonLoader } from "./loader.js"
 import { createPlayerHTML, setupSourceButtons } from "./player.js"
-import { getStoredMovieName, setStoredMovieName, updatePageTitle, getWatchHistory, addToWatchHistory, clearWatchHistory } from "./utils.js"
+import { getStoredMovieName, setStoredMovieName, updatePageTitle, getWatchHistory, addToWatchHistory, clearWatchHistory, getShowPoster, setShowPoster } from "./utils.js"
 
 document.addEventListener("DOMContentLoaded", function () {
    const movieNameInput = document.getElementById("movieName")
@@ -13,10 +13,15 @@ document.addEventListener("DOMContentLoaded", function () {
    const historyList = document.getElementById("historyList")
    const clearHistoryBtn = document.getElementById("clearHistoryBtn")
    const historyWrapper = document.querySelector(".history-wrapper")
+   const settingsButton = document.getElementById("settingsButton")
+   const settingsDropdown = document.getElementById("settingsDropdown")
+   const posterToggle = document.getElementById("posterToggle")
+   const settingsWrapper = document.querySelector(".settings-wrapper")
 
    cleanURL()
 
    initHistory()
+   initSettings()
 
    const storedMovieName = getStoredMovieName()
 
@@ -163,6 +168,39 @@ document.addEventListener("DOMContentLoaded", function () {
       })
 
       renderHistory()
+   }
+
+   function initSettings() {
+      // Restore toggle state
+      posterToggle.checked = getShowPoster()
+
+      // Toggle settings dropdown
+      settingsButton.addEventListener("click", (e) => {
+         e.stopPropagation()
+         settingsDropdown.classList.toggle("open")
+      })
+
+      // Poster toggle changes
+      posterToggle.addEventListener("change", () => {
+         const showPoster = posterToggle.checked
+         setShowPoster(showPoster)
+
+         // If there's an active search result with player, refresh it
+         const playerContainer = document.querySelector(".player-container")
+         if (playerContainer) {
+            const movieName = movieNameInput.value.trim()
+            if (movieName) {
+               performMovieSearch(movieName)
+            }
+         }
+      })
+
+      // Close on outside click
+      document.addEventListener("click", (e) => {
+         if (settingsWrapper && !settingsWrapper.contains(e.target)) {
+            settingsDropdown.classList.remove("open")
+         }
+      })
    }
 
    function cleanURL() {
