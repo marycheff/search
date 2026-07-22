@@ -48,26 +48,25 @@
 }
 
 /* ============================================
-   HEADER MOVIE INFO (title / logo inside header)
+   HEADER MOVIE INFO (below header)
    ============================================ */
 .header-movie-info {
-	flex: 1;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	min-width: 0;
-	overflow: hidden;
-	padding: 4px 8px;
+	padding: 12px 24px 4px;
+	max-width: 1400px;
+	margin: 0 auto;
+	width: 100%;
 }
 
 .header-movie-info .movie-title {
 	font-size: clamp(18px, 2.5vw, 28px);
+	font-weight: 700;
+	text-align: center;
 	margin: 0;
 	padding: 0;
-	text-align: center;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
+	letter-spacing: -0.5px;
 	background: var(--accent-gradient);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
@@ -77,11 +76,10 @@
 
 .header-movie-info .movie-logo-wrapper {
 	margin: 0;
-	flex-direction: row;
+	display: flex;
+	flex-direction: column;
 	align-items: center;
-	gap: 12px;
-	flex: 0 1 auto;
-	min-width: 0;
+	gap: 4px;
 }
 
 .header-movie-info .movie-logo {

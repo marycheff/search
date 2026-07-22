@@ -9,18 +9,11 @@
 	}
 
 	.header-movie-info {
-		flex: 1 1 100%;
-		order: 10;
-		padding: 4px 0 0;
-		justify-content: center;
+		padding: 8px 16px 2px;
 	}
 
-	.header-movie-info .movie-title {
-		text-align: center;
-	}
-
-	.header-movie-info .movie-logo-wrapper {
-		justify-content: center;
+	.header-movie-info .movie-logo {
+		max-height: 40px;
 	}
 
 	.logo-text {
@@ -170,6 +163,18 @@
 	.header-inner {
 		padding: 4px 12px;
 		gap: 6px;
+	}
+
+	.header-movie-info {
+		padding: 4px 12px 0;
+	}
+
+	.header-movie-info .movie-logo {
+		max-height: 32px;
+	}
+
+	.header-movie-info .movie-year {
+		font-size: 12px;
 	}
 
 	.logo-text {

@@ -1,4 +1,22 @@
 /* ============================================
+   MOVIE TITLE
+   ============================================ */
+.movie-title {
+	font-size: clamp(18px, 2.5vw, 28px);
+	font-weight: 700;
+	text-align: center;
+	margin: 0 auto 30px;
+	margin-top: 20px;
+	padding: 0 16px;
+	letter-spacing: -0.5px;
+	background: var(--accent-gradient);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	line-height: 1.2;
+}
+
+/* ============================================
    MOVIE LOGO & YEAR
    ============================================ */
 .movie-logo-wrapper {
@@ -24,4 +42,6 @@
 	color: var(--text-muted);
 	font-weight: 400;
 	letter-spacing: 0.3px;
+
+	display: none;
 }

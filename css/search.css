@@ -2,10 +2,9 @@
    SEARCH FORM
    ============================================ */
 .search-form {
-	flex: 0 1 auto;
-	max-width: 480px;
-	margin-right: 0;
-	margin-left: 0;
+	flex: 1;
+	max-width: 560px;
+	margin: 0 auto;
 }
 
 .search-wrapper {
