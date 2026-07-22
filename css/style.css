@@ -284,7 +284,7 @@ body {
 }
 
 .search-btn:hover {
-	transform: translateY(-1px);
+	/* transform: translateY(-1px); */
 	box-shadow: 0 4px 15px var(--accent-glow);
 }
 
@@ -603,6 +603,7 @@ body {
 	flex-direction: column;
 	flex: 1;
 	min-height: 0;
+	gap: 10px;
 }
 
 .player-wrapper {
@@ -674,7 +675,7 @@ body {
 .source-button:hover {
 	border-color: var(--border-light);
 	color: var(--text-primary);
-	transform: translateY(-2px);
+	/* transform: translateY(-2px); */
 	box-shadow: var(--shadow-sm);
 }
 
@@ -687,7 +688,7 @@ body {
 	border-color: var(--accent-primary);
 	background: var(--accent-primary);
 	box-shadow: 0 0 20px var(--accent-glow);
-	transform: translateY(-1px);
+	/* transform: translateY(-1px); */
 }
 
 /* ============================================
