@@ -302,6 +302,40 @@ body {
 	font-weight: 400;
 }
 
+.search-clear {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 28px;
+	height: 28px;
+	padding: 0;
+	background: transparent;
+	border: none;
+	border-radius: 50%;
+	color: var(--text-muted);
+	cursor: pointer;
+	opacity: 0;
+	pointer-events: none;
+	transition: var(--transition-fast);
+	flex-shrink: 0;
+	margin-right: 4px;
+}
+
+.search-clear svg {
+	width: 16px;
+	height: 16px;
+}
+
+.search-clear:hover {
+	color: var(--text-primary);
+	background: rgba(255, 255, 255, 0.08);
+}
+
+.search-clear.visible {
+	opacity: 1;
+	pointer-events: auto;
+}
+
 .search-input::placeholder {
 	color: var(--text-muted);
 	font-weight: 400;

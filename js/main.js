@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
    const historyDropdown = document.getElementById("historyDropdown")
    const historyList = document.getElementById("historyList")
    const clearHistoryBtn = document.getElementById("clearHistoryBtn")
+   const searchClearBtn = document.getElementById("searchClear")
    const historyWrapper = document.querySelector(".history-wrapper")
    const settingsButton = document.getElementById("settingsButton")
    const settingsDropdown = document.getElementById("settingsDropdown")
@@ -19,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
    const settingsWrapper = document.querySelector(".settings-wrapper")
 
    cleanURL()
-
+   initSearchClear()
    initHistory()
    initSettings()
 
@@ -29,6 +30,28 @@ document.addEventListener("DOMContentLoaded", function () {
       movieNameInput.value = storedMovieName
       hideEmptyState()
       performMovieSearch(storedMovieName)
+   }
+
+   function initSearchClear() {
+      function toggleClearBtn() {
+         if (movieNameInput.value.trim()) {
+            searchClearBtn.classList.add("visible")
+         } else {
+            searchClearBtn.classList.remove("visible")
+         }
+      }
+
+      movieNameInput.addEventListener("input", toggleClearBtn)
+      toggleClearBtn()
+
+      searchClearBtn.addEventListener("click", function () {
+         movieNameInput.value = ""
+         searchClearBtn.classList.remove("visible")
+         searchResultsElement.innerHTML = ""
+         showEmptyState()
+         movieNameInput.focus()
+         setStoredMovieName("")
+      })
    }
 
    function showEmptyState() {
