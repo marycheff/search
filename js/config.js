@@ -8,4 +8,5 @@ export const API_CONFIG = {
 export const STORAGE_KEYS = {
    MOVIE_NAME: "movieName",
    PREFERRED_SOURCE: "preferred-source",
+   WATCH_HISTORY: "watchHistory",
 }

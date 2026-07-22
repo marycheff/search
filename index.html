@@ -45,12 +45,22 @@
 					</button>
 				</div>
 			</form>
-			<!-- <button id="clearButton" class="clear-btn" title="Очистить поиск и историю">
-				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-					<polyline points="3 6 5 6 21 6"/>
-					<path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
-				</svg>
-			</button> -->
+			<div class="history-wrapper">
+				<button id="historyButton" class="history-btn" title="История просмотров">
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<circle cx="12" cy="12" r="10"/>
+						<polyline points="12 6 12 12 16 14"/>
+					</svg>
+				</button>
+				<div id="historyDropdown" class="history-dropdown">
+					<div class="history-dropdown-header">
+						<span>История просмотров</span>
+						<button id="clearHistoryBtn" class="history-clear-btn">Очистить</button>
+					</div>
+					<div id="historyList" class="history-list"></div>
+					<div class="history-empty">История пуста</div>
+				</div>
+			</div>
 		</div>
 	</header>
 

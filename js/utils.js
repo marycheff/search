@@ -1,3 +1,5 @@
+import { STORAGE_KEYS } from "./config.js"
+
 export function updatePageTitle(movieName) {
    document.title = movieName
 }
@@ -10,10 +12,36 @@ export function setStoredMovieName(movieName) {
    localStorage.setItem("movieName", movieName)
 }
 
+export function getWatchHistory() {
+   try {
+      const data = localStorage.getItem(STORAGE_KEYS.WATCH_HISTORY)
+      return data ? JSON.parse(data) : []
+   } catch {
+      return []
+   }
+}
+
+export function addToWatchHistory(movie) {
+   let history = getWatchHistory()
+   history = history.filter((item) => item.name !== movie.name)
+   history.unshift({
+      name: movie.name,
+      year: movie.year,
+      id: movie.id,
+      logo: movie.logo?.previewUrl || null,
+   })
+   if (history.length > 10) history = history.slice(0, 10)
+   localStorage.setItem(STORAGE_KEYS.WATCH_HISTORY, JSON.stringify(history))
+   return history
+}
+
+export function clearWatchHistory() {
+   localStorage.removeItem(STORAGE_KEYS.WATCH_HISTORY)
+}
+
 // Функция для очистки URL от параметров
 export function cleanURL() {
    const url = new URL(window.location)
-
    if (url.search) {
       window.history.replaceState({}, document.title, url.pathname)
    }

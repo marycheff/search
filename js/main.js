@@ -1,15 +1,22 @@
 import { fetchKinoboxSources, getMovieFromKinopoisk } from "./api.js"
 import { showSkeletonLoader } from "./loader.js"
 import { createPlayerHTML, setupSourceButtons } from "./player.js"
-import { getStoredMovieName, setStoredMovieName, updatePageTitle } from "./utils.js"
+import { getStoredMovieName, setStoredMovieName, updatePageTitle, getWatchHistory, addToWatchHistory, clearWatchHistory } from "./utils.js"
 
 document.addEventListener("DOMContentLoaded", function () {
    const movieNameInput = document.getElementById("movieName")
    const searchResultsElement = document.getElementById("searchResults")
    const movieSearchForm = document.getElementById("movieSearchForm")
    const emptyState = document.getElementById("emptyState")
+   const historyButton = document.getElementById("historyButton")
+   const historyDropdown = document.getElementById("historyDropdown")
+   const historyList = document.getElementById("historyList")
+   const clearHistoryBtn = document.getElementById("clearHistoryBtn")
+   const historyWrapper = document.querySelector(".history-wrapper")
 
    cleanURL()
+
+   initHistory()
 
    const storedMovieName = getStoredMovieName()
 
@@ -35,6 +42,8 @@ document.addEventListener("DOMContentLoaded", function () {
          const movie = await getMovieFromKinopoisk(movieName)
 
          updatePageTitle(movie.name)
+         addToWatchHistory(movie)
+         renderHistory()
 
          const movieData = {
             kinopoisk: movie.id,
@@ -93,6 +102,67 @@ document.addEventListener("DOMContentLoaded", function () {
       performMovieSearch(movieName)
 
       return false
+   }
+
+   function renderHistory() {
+      const history = getWatchHistory()
+      historyList.innerHTML = ""
+      historyDropdown.classList.toggle("has-items", history.length > 0)
+
+      history.forEach((item) => {
+         const el = document.createElement("button")
+         el.className = "history-item"
+         el.innerHTML = `
+            <span class="history-item-name">${item.name}</span>
+            <span class="history-item-year">${item.year}</span>
+         `
+         el.addEventListener("click", () => {
+            movieNameInput.value = item.name
+            setStoredMovieName(item.name)
+            hideEmptyState()
+            performMovieSearch(item.name)
+            closeHistory()
+         })
+         historyList.appendChild(el)
+      })
+   }
+
+   function openHistory() {
+      historyDropdown.classList.add("open")
+   }
+
+   function closeHistory() {
+      historyDropdown.classList.remove("open")
+   }
+
+   function toggleHistory() {
+      if (historyDropdown.classList.contains("open")) {
+         closeHistory()
+      } else {
+         renderHistory()
+         openHistory()
+      }
+   }
+
+   function initHistory() {
+      historyButton.addEventListener("click", (e) => {
+         e.stopPropagation()
+         toggleHistory()
+      })
+
+      clearHistoryBtn.addEventListener("click", (e) => {
+         e.stopPropagation()
+         clearWatchHistory()
+         renderHistory()
+      })
+
+      document.addEventListener("click", (e) => {
+         if (!historyWrapper.contains(e.target)) {
+            closeHistory()
+         }
+      })
+
+      renderHistory()
    }
 
    function cleanURL() {
