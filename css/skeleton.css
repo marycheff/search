@@ -23,24 +23,6 @@
 	border-radius: var(--radius-lg);
 }
 
-.skeleton-logo {
-	height: 64px;
-	width: 60%;
-	max-width: 500px;
-	margin: 0 auto 10px;
-	border-radius: var(--radius-sm);
-	flex-shrink: 0;
-}
-
-.skeleton-title {
-	height: 32px;
-	width: 50%;
-	max-width: 400px;
-	margin: 0 auto 10px;
-	border-radius: var(--radius-sm);
-	flex-shrink: 0;
-}
-
 .skeleton-header-title {
 	height: clamp(18px, 2.5vw, 28px);
 	width: 60%;

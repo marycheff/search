@@ -1,13 +1,11 @@
 /* ============================================
-   MOVIE TITLE
+   MOVIE TITLE / LOGO / YEAR
+   (Base classes; header.css overrides for #headerMovieInfo)
    ============================================ */
 .movie-title {
 	font-size: clamp(18px, 2.5vw, 28px);
 	font-weight: 700;
 	text-align: center;
-	margin: 0 auto 30px;
-	margin-top: 20px;
-	padding: 0 16px;
 	letter-spacing: -0.5px;
 	background: var(--accent-gradient);
 	-webkit-background-clip: text;
@@ -16,11 +14,7 @@
 	line-height: 1.2;
 }
 
-/* ============================================
-   MOVIE LOGO & YEAR
-   ============================================ */
 .movie-logo-wrapper {
-	margin: 0 auto 10px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -29,19 +23,14 @@
 }
 
 .movie-logo {
-	max-height: 64px;
 	width: auto;
 	max-width: 100%;
 	object-fit: contain;
 	filter: drop-shadow(0 0 20px rgba(108, 92, 231, 0.2));
-	transition: var(--transition-base);
 }
 
 .movie-year {
-	font-size: 13px;
 	color: var(--text-muted);
 	font-weight: 400;
-	letter-spacing: 0.3px;
-
 	display: none;
 }

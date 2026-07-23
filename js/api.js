@@ -1,5 +1,7 @@
 import { API_CONFIG } from "./config.js"
 
+// Поиск фильмов по названию или ID Кинопоиска.
+// Если movieName — число, запрос идёт по ID, иначе по тексту.
 export async function searchMovies(movieName, limit = 5) {
    const options = {
       method: "GET",
@@ -31,11 +33,13 @@ export async function searchMovies(movieName, limit = 5) {
    return movies
 }
 
+// Быстрый запрос одного фильма (первый результат поиска)
 export async function getMovieFromKinopoisk(movieName) {
    const movies = await searchMovies(movieName, 1)
    return movies[0]
 }
 
+// Запрашивает список плееров через Kinobox API по ID или названию
 export async function fetchKinoboxSources(movieData) {
    const apiURL = new URL(API_CONFIG.KINOBOX_API)
 
@@ -66,6 +70,7 @@ export async function fetchKinoboxSources(movieData) {
       throw new Error(`Неверный формат ответа от API: "data" не является массивом`)
    }
 
+   // Удаляет обратные кавычки по краям строки URL
    const normalizeUrl = (value) => {
       if (typeof value !== "string") return null
       const trimmed = value.trim()

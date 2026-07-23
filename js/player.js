@@ -1,9 +1,8 @@
 import { STORAGE_KEYS } from "./config.js"
 import { getShowPoster, getVerticalTabs } from "./utils.js"
 
-export function createPlayerHTML(sources, movie) {
-	renderMovieTitle(movie)
-
+// Создаёт HTML контейнера плеера (с учётом включённых вертикальных вкладок)
+export function createPlayerHTML(movie) {
 	const verticalClass = getVerticalTabs() ? " vertical" : ""
 
 	return `
@@ -16,8 +15,9 @@ export function createPlayerHTML(sources, movie) {
     `
 }
 
-export function renderMovieTitle(movie) {
-	const headerInfo = document.getElementById("headerMovieInfo")
+// Отображает название фильма (или постер с годом) в блоке #headerMovieInfo
+export function renderMovieTitle(movie, container) {
+	const headerInfo = container || document.getElementById("headerMovieInfo")
 	if (!headerInfo) return
 
 	const showPoster = getShowPoster()
@@ -34,22 +34,20 @@ export function renderMovieTitle(movie) {
 	}
 }
 
+// Создаёт кнопки источников, активирует предпочтённый (Turbo → сохранённый → первый)
 export function setupSourceButtons(sources) {
 	const sourcesElement = document.getElementById("player-sources")
 	const contentElement = document.getElementById("player-content")
 
 	if (!sourcesElement || !contentElement) return
 
-	// Сначала ищем Alloha
 	let preferredSourceIndex = sources.findIndex((source) => source.type === "Turbo")
 
-	// Если Alloha не найден, используем сохраненное предпочтение
 	if (preferredSourceIndex === -1) {
 		const preferredSource = localStorage.getItem(STORAGE_KEYS.PREFERRED_SOURCE)
 		preferredSourceIndex = sources.findIndex((source) => source.type === preferredSource)
 	}
 
-	// Если ничего не найдено, используем первый источник
 	if (preferredSourceIndex === -1) preferredSourceIndex = 0
 
 	sources.forEach((source, index) => {
@@ -76,6 +74,7 @@ export function setupSourceButtons(sources) {
 	})
 }
 
+// Загружает iframe выбранного источника в контейнер плеера
 function selectSource(sourceData, contentElement) {
 	const iframe = document.createElement("iframe")
 	iframe.src = sourceData?.iframeUrl

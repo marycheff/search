@@ -151,33 +151,3 @@
 	transform: translateX(3px);
 }
 
-/* ============================================
-   CLEAR BUTTON
-   ============================================ */
-.clear-btn {
-	width: 36px;
-	height: 36px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background: transparent;
-	border: 1px solid var(--border-light);
-	border-radius: var(--radius-sm);
-	color: var(--text-muted);
-	cursor: pointer;
-	transition: var(--transition-base);
-	flex-shrink: 0;
-	padding: 6px;
-}
-
-.clear-btn svg {
-	width: 16px;
-	height: 16px;
-}
-
-.clear-btn:hover {
-	background: rgba(255, 107, 107, 0.1);
-	border-color: rgba(255, 107, 107, 0.3);
-	color: var(--red);
-	box-shadow: 0 0 15px rgba(255, 107, 107, 0.1);
-}

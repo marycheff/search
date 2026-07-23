@@ -18,12 +18,6 @@ export function showSkeletonLoader() {
    return skeletonHTML
 }
 
-export function hideSkeletonLoader(element) {
-   if (element) {
-      element.innerHTML = ""
-   }
-}
-
 export function showHeaderSkeleton() {
    const el = document.getElementById("headerMovieInfo")
    if (!el) return

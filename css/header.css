@@ -19,34 +19,6 @@
 	position: relative;
 }
 
-.logo {
-	display: flex;
-	align-items: center;
-	gap: 10px;
-	flex-shrink: 0;
-}
-
-.logo-icon {
-	width: 28px;
-	height: 28px;
-	color: var(--accent-secondary);
-	filter: drop-shadow(0 0 8px var(--accent-glow));
-}
-
-.logo-text {
-	font-size: 18px;
-	font-weight: 700;
-	color: var(--text-primary);
-	letter-spacing: -0.5px;
-}
-
-.logo-accent {
-	background: var(--accent-gradient);
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-	background-clip: text;
-}
-
 /* ============================================
    HEADER MOVIE INFO (below header)
    ============================================ */
