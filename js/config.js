@@ -9,4 +9,5 @@ export const STORAGE_KEYS = {
 	PREFERRED_SOURCE: "preferred-source",
 	WATCH_HISTORY: "watchHistory",
 	SHOW_POSTER: "showPoster",
+	VERTICAL_TABS: "verticalTabs",
 }

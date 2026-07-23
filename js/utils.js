@@ -13,12 +13,21 @@ export function setStoredMovieName(movieName) {
 }
 
 export function getShowPoster() {
-   const val = localStorage.getItem(STORAGE_KEYS.SHOW_POSTER)
-   return val === null ? true : val === "true"
+	const val = localStorage.getItem(STORAGE_KEYS.SHOW_POSTER)
+	return val === null ? true : val === "true"
 }
 
 export function setShowPoster(value) {
-   localStorage.setItem(STORAGE_KEYS.SHOW_POSTER, value ? "true" : "false")
+	localStorage.setItem(STORAGE_KEYS.SHOW_POSTER, value ? "true" : "false")
+}
+
+export function getVerticalTabs() {
+	const val = localStorage.getItem(STORAGE_KEYS.VERTICAL_TABS)
+	return val === "true"
+}
+
+export function setVerticalTabs(value) {
+	localStorage.setItem(STORAGE_KEYS.VERTICAL_TABS, value ? "true" : "false")
 }
 
 export function getWatchHistory() {

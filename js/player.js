@@ -1,11 +1,13 @@
 import { STORAGE_KEYS } from "./config.js"
-import { getShowPoster } from "./utils.js"
+import { getShowPoster, getVerticalTabs } from "./utils.js"
 
 export function createPlayerHTML(sources, movie) {
 	renderMovieTitle(movie)
 
+	const verticalClass = getVerticalTabs() ? " vertical" : ""
+
 	return `
-        <div class="player-container">
+        <div class="player-container${verticalClass}">
             <div id="player-content" class="player-content">
                 <span>Выберите источник для просмотра</span>
             </div>

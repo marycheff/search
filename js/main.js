@@ -1,7 +1,7 @@
-import { fetchKinoboxSources, getMovieFromKinopoisk } from "./api.js"
-import { showSkeletonLoader } from "./loader.js"
+import { showSkeletonLoader, showHeaderSkeleton } from "./loader.js"
 import { createPlayerHTML, setupSourceButtons, renderMovieTitle } from "./player.js"
-import { getStoredMovieName, setStoredMovieName, updatePageTitle, getWatchHistory, addToWatchHistory, clearWatchHistory, getShowPoster, setShowPoster } from "./utils.js"
+import { getStoredMovieName, setStoredMovieName, updatePageTitle, getWatchHistory, addToWatchHistory, clearWatchHistory, getShowPoster, setShowPoster, getVerticalTabs, setVerticalTabs } from "./utils.js"
+// import { MOCK_MOVIE, MOCK_SOURCES } from "./mock.js"
 
 document.addEventListener("DOMContentLoaded", function () {
    const movieNameInput = document.getElementById("movieName")
@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
    const settingsButton = document.getElementById("settingsButton")
    const settingsDropdown = document.getElementById("settingsDropdown")
    const posterToggle = document.getElementById("posterToggle")
+   const verticalTabsToggle = document.getElementById("verticalTabsToggle")
    const settingsWrapper = document.querySelector(".settings-wrapper")
 
    cleanURL()
@@ -206,8 +207,9 @@ document.addEventListener("DOMContentLoaded", function () {
    }
 
    function initSettings() {
-      // Restore toggle state
+      // Restore toggle states
       posterToggle.checked = getShowPoster()
+      if (verticalTabsToggle) verticalTabsToggle.checked = getVerticalTabs()
 
       // Toggle settings dropdown
       settingsButton.addEventListener("click", (e) => {
@@ -221,7 +223,6 @@ document.addEventListener("DOMContentLoaded", function () {
          const showPoster = posterToggle.checked
          setShowPoster(showPoster)
 
-         // If there's an active search result with player, refresh it
          const playerContainer = document.querySelector(".player-container")
          if (playerContainer) {
             const movieName = movieNameInput.value.trim()
@@ -230,6 +231,21 @@ document.addEventListener("DOMContentLoaded", function () {
             }
          }
       })
+
+      // Vertical tabs toggle changes
+      if (verticalTabsToggle) {
+         verticalTabsToggle.addEventListener("change", () => {
+            setVerticalTabs(verticalTabsToggle.checked)
+
+            const playerContainer = document.querySelector(".player-container")
+            if (playerContainer) {
+               const movieName = movieNameInput.value.trim()
+               if (movieName) {
+                  performMovieSearch(movieName)
+               }
+            }
+         })
+      }
 
       // Close on outside click
       document.addEventListener("click", (e) => {

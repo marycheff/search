@@ -60,6 +60,14 @@
 		max-width: min(100%, calc((100vh - 170px) * 16 / 9));
 	}
 
+	.player-container.vertical .player-content {
+		max-height: calc(100vh - 170px);
+	}
+
+	.player-container.vertical .player-sources {
+		width: 100px;
+	}
+
 	.loading-container {
 		max-width: min(100%, calc((100vh - 170px) * 16 / 9));
 	}
@@ -239,6 +247,14 @@
 
 	.player-container {
 		max-width: min(100%, calc((100vh - 140px) * 16 / 9));
+	}
+
+	.player-container.vertical .player-content {
+		max-height: calc(100vh - 140px);
+	}
+
+	.player-container.vertical .player-sources {
+		width: 80px;
 	}
 
 	.loading-container {
