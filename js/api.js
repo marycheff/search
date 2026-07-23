@@ -1,6 +1,6 @@
 import { API_CONFIG } from "./config.js"
 
-export async function getMovieFromKinopoisk(movieName) {
+export async function searchMovies(movieName, limit = 5) {
    const options = {
       method: "GET",
       headers: {
@@ -13,7 +13,7 @@ export async function getMovieFromKinopoisk(movieName) {
    if (!isNaN(movieName)) {
       apiUrl = `${API_CONFIG.KINOPOISK_BASE_URL}/${encodeURIComponent(movieName)}`
    } else {
-      apiUrl = `${API_CONFIG.KINOPOISK_BASE_URL}/search?page=1&limit=1&query=${encodeURIComponent(movieName)}`
+      apiUrl = `${API_CONFIG.KINOPOISK_BASE_URL}/search?page=1&limit=${limit}&query=${encodeURIComponent(movieName)}`
    }
 
    const response = await fetch(apiUrl, options)
@@ -28,6 +28,11 @@ export async function getMovieFromKinopoisk(movieName) {
       throw new Error("Фильм не найден")
    }
 
+   return movies
+}
+
+export async function getMovieFromKinopoisk(movieName) {
+   const movies = await searchMovies(movieName, 1)
    return movies[0]
 }
 

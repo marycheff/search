@@ -1,7 +1,7 @@
-import { showSkeletonLoader, showHeaderSkeleton } from "./loader.js"
+import { showSkeletonLoader, showHeaderSkeleton, hideHeaderSkeleton } from "./loader.js"
 import { createPlayerHTML, setupSourceButtons, renderMovieTitle } from "./player.js"
 import { getStoredMovieName, setStoredMovieName, updatePageTitle, getWatchHistory, addToWatchHistory, clearWatchHistory, getShowPoster, setShowPoster, getVerticalTabs, setVerticalTabs } from "./utils.js"
-// import { MOCK_MOVIE, MOCK_SOURCES } from "./mock.js"
+import { searchMovies, fetchKinoboxSources } from "./api.js"
 
 document.addEventListener("DOMContentLoaded", function () {
    const movieNameInput = document.getElementById("movieName")
@@ -19,6 +19,8 @@ document.addEventListener("DOMContentLoaded", function () {
    const posterToggle = document.getElementById("posterToggle")
    const verticalTabsToggle = document.getElementById("verticalTabsToggle")
    const settingsWrapper = document.querySelector(".settings-wrapper")
+
+   let currentMovies = null
 
    cleanURL()
    initSearchClear()
@@ -70,39 +72,28 @@ document.addEventListener("DOMContentLoaded", function () {
       if (emptyState) emptyState.style.display = "none"
    }
 
+   async function fetchSourcesForMovie(movie) {
+      const movieData = { title: movie.name }
+      if (movie.id) movieData.kinopoisk = movie.id
+      if (movie.externalId?.kp) movieData.kinopoisk = movie.externalId.kp
+      return await fetchKinoboxSources(movieData)
+   }
+
    async function performMovieSearch(movieName) {
       try {
          hideEmptyState()
          document.getElementById("headerMovieInfo").innerHTML = ""
+         showHeaderSkeleton()
          searchResultsElement.innerHTML = showSkeletonLoader()
 
-         const movie = await getMovieFromKinopoisk(movieName)
+         const movies = await searchMovies(movieName, 5)
+         currentMovies = movies
 
-         updatePageTitle(movie.name)
-         addToWatchHistory(movie)
-         renderHistory()
-
-         renderMovieTitle(movie)
-
-         const movieData = {
-            kinopoisk: movie.id,
-            title: movie.name,
-         }
-
-         const sources = await fetchKinoboxSources(movieData)
-
-         if (sources.length === 0) {
-            searchResultsElement.innerHTML = `<div class="empty-state" style="display:flex"><h2 class="empty-title" style="color:var(--text-muted);">Плееры для фильма "${movieName}" не найдены.</h2></div>`
-            return
-         }
-
-         const playerHTML = createPlayerHTML(sources, movie)
-         searchResultsElement.innerHTML = playerHTML
-
-         setupSourceButtons(sources)
+         await selectMovie(movies, 0)
       } catch (error) {
          console.error("Ошибка при поиске фильма:", error)
          document.getElementById("headerMovieInfo").innerHTML = ""
+         hideHeaderSkeleton()
 
          if (error.message === "Фильм не найден") {
             searchResultsElement.innerHTML = `<div class="empty-state" style="display:flex"><h2 class="empty-title" style="color:var(--text-muted);">Фильм "${movieName}" не найден.</h2></div>`
@@ -111,6 +102,86 @@ document.addEventListener("DOMContentLoaded", function () {
          }
       }
    }
+
+   const resultsButton = document.getElementById("resultsButton")
+   const resultsDropdown = document.getElementById("resultsDropdown")
+   const resultsList = document.getElementById("resultsList")
+
+   async function selectMovie(movies, index) {
+      const movie = movies[index]
+
+      updatePageTitle(movie.name)
+      addToWatchHistory(movie)
+      renderHistory()
+
+      renderMovieTitle(movie)
+
+      searchResultsElement.innerHTML = showSkeletonLoader()
+
+      const sources = await fetchSourcesForMovie(movie)
+
+      if (sources.length === 0) {
+         searchResultsElement.innerHTML = `<div class="empty-state" style="display:flex"><h2 class="empty-title" style="color:var(--text-muted);">Плееры для фильма "${movie.name}" не найдены.</h2></div>`
+         return
+      }
+
+      searchResultsElement.innerHTML = createPlayerHTML(sources, movie)
+      setupSourceButtons(sources)
+
+      populateResultsDropdown(movies, index)
+   }
+
+   function populateResultsDropdown(movies, selectedIndex) {
+      if (movies.length <= 1) {
+         resultsButton.style.display = "none"
+         return
+      }
+
+      resultsButton.style.display = ""
+      resultsList.innerHTML = ""
+      movies.forEach((m, i) => {
+         if (i === selectedIndex) return
+         const el = document.createElement("button")
+         el.className = "result-item"
+         el.dataset.index = i
+         el.innerHTML = `<span class="result-item-name">${m.name}</span><span class="result-item-year">${m.year}</span>`
+         el.addEventListener("click", () => {
+            closeResultsDropdown()
+            hideEmptyState()
+            document.getElementById("headerMovieInfo").innerHTML = ""
+            showHeaderSkeleton()
+            searchResultsElement.innerHTML = showSkeletonLoader()
+            selectMovie(currentMovies, i)
+         })
+         resultsList.appendChild(el)
+      })
+   }
+
+   function openResultsDropdown() {
+      resultsDropdown.classList.add("open")
+   }
+
+   function closeResultsDropdown() {
+      resultsDropdown.classList.remove("open")
+   }
+
+    resultsButton.addEventListener("click", (e) => {
+      e.stopPropagation()
+      closeHistory()
+      settingsDropdown.classList.remove("open")
+      if (resultsDropdown.classList.contains("open")) {
+         closeResultsDropdown()
+      } else {
+         openResultsDropdown()
+      }
+   })
+
+   document.addEventListener("click", (e) => {
+      const wrapper = document.querySelector(".results-wrapper")
+      if (wrapper && !wrapper.contains(e.target)) {
+         closeResultsDropdown()
+      }
+   })
 
    movieSearchForm.addEventListener("submit", handleFormSubmit)
 
@@ -180,6 +251,7 @@ document.addEventListener("DOMContentLoaded", function () {
          closeHistory()
       } else {
          settingsDropdown.classList.remove("open")
+         closeResultsDropdown()
          renderHistory()
          openHistory()
       }
@@ -215,6 +287,7 @@ document.addEventListener("DOMContentLoaded", function () {
       settingsButton.addEventListener("click", (e) => {
          e.stopPropagation()
          closeHistory()
+         closeResultsDropdown()
          settingsDropdown.classList.toggle("open")
       })
 
