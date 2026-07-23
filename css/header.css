@@ -15,8 +15,18 @@
 	padding: 8px 24px;
 	display: flex;
 	align-items: center;
-	gap: 16px;
+	justify-content: space-between;
 	position: relative;
+}
+
+/* ============================================
+   LEFT SPACER (balances right side buttons so search stays centered)
+   ============================================ */
+.header-left {
+	display: flex;
+	align-items: center;
+	width: 140px;
+	flex-shrink: 0;
 }
 
 /* ============================================
@@ -68,6 +78,18 @@
 	font-weight: 400;
 	white-space: nowrap;
 	flex-shrink: 0;
+}
+
+/* ============================================
+   RIGHT SIDE ACTIONS (results + settings + history)
+   ============================================ */
+.header-right {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	width: 140px;
+	flex-shrink: 0;
+	justify-content: flex-end;
 }
 
 /* ============================================
@@ -199,4 +221,17 @@
 	align-items: center;
 	gap: 8px;
 	flex-shrink: 0;
+}
+
+/* ============================================
+   RESPONSIVE — hide left spacer on small screens
+   ============================================ */
+@media (max-width: 640px) {
+	.header-left {
+		display: none;
+	}
+
+	.header-right {
+		width: auto;
+	}
 }
